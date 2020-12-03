@@ -1,10 +1,10 @@
 
 <template>
     <div>
-        <div v-for="(pokemon,index) in pokemons['data']" :key="pokemon.name">
+        <div v-for="(pokemon,index) in pokemons" :key="pokemon.name">
             <div class="">
                 <p>{{pokemon.name}}</p>
-                <button @click="detailsPokemon(index+1)">Botao</button>
+                <button @click="detailsPokemon(index+1)">Detalhes</button>
             </div>
         </div>
     </div>
@@ -20,15 +20,15 @@ export default {
         pokemons: null
         }
     },
-  mounted () {
-    axios
-      .get('http://127.0.0.1:8000/api/pokemon/buscar')
-      .then(response => (this.pokemons = response)) // passar methods
-  },
-  methods: {
-      detailsPokemon(id){
-          this.$router.push(`/detalhes/${id}`)
-      }
-  },
+    mounted (){
+        axios
+        .get('http://127.0.0.1:8000/api/pokemon/buscar')
+        .then(response => (this.pokemons = response.data)) // passar methods
+    },
+    methods: {
+        detailsPokemon(id){
+            this.$router.push(`/detalhes/${id}`)
+        }
+    },
 }
 </script>
